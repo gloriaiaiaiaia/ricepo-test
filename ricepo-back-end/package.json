@@ -1,0 +1,33 @@
+{
+  "name": "duro-viz-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "client-address": "^1.0.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "excel-parser": "^0.2.2",
+    "express": "^4.16.3",
+    "express-fileupload": "^0.4.0",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "jade": "^1.11.0",
+    "knex": "^0.14.4",
+    "morgan": "^1.9.0",
+    "node-xlsx": "^0.12.0",
+    "nodemon": "^1.15.1",
+    "npm": "^5.8.0",
+    "path": "^0.12.7",
+    "pg": "^7.4.1",
+    "request-ip": "^2.0.2"
+  }
+}
