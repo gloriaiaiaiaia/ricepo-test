@@ -18,14 +18,13 @@ class App extends Component {
       basicName: '', // product's name
       basicPrice: 0, // product's basic price
       shownPrice: 0, // product's shown price
-      options: [],
-      optionPrice: [],
-      optionItemLeft: [],
-      optionMin: [],
-      reachOptionMin: false,
-      popUpDialog: false,
-      open: false,
-      chosenItem: []
+      options: [],  // all options
+      optionPrice: [], // total price among all options (ele = price from one option)
+      optionItemLeft: [], // check if items' quantity meet 'min'
+      optionMin: [], // 'min' for options
+      reachOptionMin: false, // record if all 'min's are reached
+      popUpDialog: false, // open 'check out' pop-up window
+      chosenItem: [] // record all chosen items
   }
 }
 
@@ -43,21 +42,23 @@ class App extends Component {
                 console.log('opP', this.state.optionPrice);
               });
 
-            var optionMin = new Array(data.options.length).fill(0);
+            // store 'min' of each options
+            var newOptionMin = new Array(data.options.length).fill(0);
             var i = 0;
-            while (i < optionMin.length) {
-              optionMin[i] = data.options[i].min;
+            while (i < newOptionMin.length) {
+              newOptionMin[i] = data.options[i].min;
               i++;
             }
 
             this.setState({
-              optionItemLeft: optionMin,
-              optionMin: optionMin
+              optionItemLeft: newOptionMin,
+              optionMin: newOptionMin
             },
               () => {
                 console.log('optionItemLeft', this.state.optionItemLeft);
               });
 
+            // will store all chosen items
             var updateChosenItem = new Array(data.options.length);
             var a = 0;
             while (a < data.options.length) {
@@ -75,6 +76,7 @@ class App extends Component {
         )
   }
 
+  // handle and update changes from options
   changePrice = (optionId, chooseArray, items) => {
     var index = 0;
     var newOptionPrice = [...this.state.optionPrice];
@@ -82,20 +84,24 @@ class App extends Component {
     var newChosenItem = [...this.state.chosenItem];
     var price = 0;
     
+    // calculate price for current option
     while (index < chooseArray.length) {
       var itemId = chooseArray[index];
       price += items[itemId].price;
       index++;
     }
 
-    //
+    // update chosen items' quantity
     var itemNum = 0;
     while (itemNum < items.length) {
       newChosenItem[optionId][itemNum] = items[itemNum].quantity;
       itemNum++;
     }
 
+    // update price to 'optionPrice'
     newOptionPrice[optionId] = price;
+
+    // update how many items need to be chosen to meet 'min'
     newOptionItemLeft[optionId] = this.state.optionMin[optionId] - chooseArray.length;
 
     //check if reached option's 'min'
@@ -113,7 +119,7 @@ class App extends Component {
       this.setState({ reachOptionMin: true });
     }
 
-    // update price
+    // update price to total price
     const newPrice = this.state.basicPrice + _.sum(newOptionPrice)/100;
 
     this.setState({
@@ -128,11 +134,12 @@ class App extends Component {
       }); 
   }
 
+  // open final check window
   handleFinalCheck = () => {
-    console.log(this.state.optionItemLeft);
     this.setState({popUpDialog: true});
   }
 
+  // close final check window
   handleWindowClose = () => {
     this.setState({ popUpDialog: false });
   }

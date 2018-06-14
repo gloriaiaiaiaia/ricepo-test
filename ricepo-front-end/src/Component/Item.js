@@ -8,9 +8,11 @@ const Item = ({itemName, itemPrice}) => {
 	      <Grid>
 			  <Row className="show-grid">
 			    <Col className="col-6">
+			    {/* item's name */}
 			      <h5>{itemName}</h5> 
 			    </Col>
 			    <Col className="col-6">
+			    {/* item's price */}
 			      <h5>{`+`+itemPrice/100}</h5>
 			    </Col>
 			  </Row>

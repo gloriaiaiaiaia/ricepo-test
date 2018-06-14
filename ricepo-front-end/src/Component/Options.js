@@ -8,14 +8,15 @@ export default class Options extends Component{
 	constructor(props) {
     super(props);
     this.state = {
-    	optionId: props.optionId,
-    	min: props.option.min,  
-    	max: props.option.max,  
-    	items: props.option.items,
+    	optionId: props.optionId, // current option id
+    	min: props.option.min,  // current option 'min'
+    	max: props.option.max,  // current option 'max'
+    	items: props.option.items,  // current option items
     	chooseArray: []  // 'chooseArray' to store items(index) user chosen
       }
   	}
 
+  	// if 'max' === 0 => no high limit for chosen items, we can set max to very large number
   	componentWillMount() {
   		if (this.state.max === 0) {
   			this.setState({max: 99999},
@@ -25,14 +26,16 @@ export default class Options extends Component{
   		}
   	}
 
-  	// when adding item to 'chooseArray'
+  	// adding item to 'chooseArray'
 	handleAddItem = (itemId) => {
 		var newChooseArray = [...this.state.chooseArray];
 		var newItem = this.state.items;
 
+		// add ele
 		newChooseArray.push(itemId);
 		newItem[itemId].quantity++;
 
+		// if chosen items more than 'max' => delete the earliest ele
 		if (newChooseArray.length > this.state.max) {
 			var deleteId = newChooseArray.shift();
 			newItem[deleteId].quantity--;
@@ -47,14 +50,16 @@ export default class Options extends Component{
 			});
 	}
 
-	// when deleting item to 'chooseArray'
+	// deleting item from 'chooseArray'
 	handleDeleteItem = (itemId) => {
 		var newChooseArray = [...this.state.chooseArray];
 		var deleteId = itemId;
 		var newItem = this.state.items;
 
+		//delete ele's quantity
 		newItem[deleteId].quantity--;
 		var deleted = 0;
+
 		//update 'chooseArray' {delete the first ele = 'deleteId'}
 		var deletedNewChooseArray = new Array(0);
 		while (newChooseArray.length > 0) {
@@ -113,7 +118,7 @@ export default class Options extends Component{
 									      <Button className="itemNum" 
 									      		  bsSize="small" 
 									      		  style={{borderRadius:100}}
-									      		  // when clicked, chosen item should be removed from 'chooseArray'
+									      		  // when clicked, the first of chosen items should be removed from 'chooseArray'
 									      		  onClick={() => this.handleDeleteItem(i)}>{item.quantity}</Button>
 									    </Col> 
 								    :   null}
@@ -124,7 +129,7 @@ export default class Options extends Component{
 	        				</div>)
 	        		} else {
 	        			return (
-	        				// when item is not available, will show in gray, unclickable 
+	        				// when item is not available, will show in gray, and unclickable 
 							<div style={{color: 'gray'}} key={i}>
 								<Grid>
 								  <Row className="show-grid">
