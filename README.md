@@ -1,11 +1,8 @@
 # ricepo-test
 
 Webpage Structure:
-App.js  => Header (with product’s name and total price)
-	=> Options.js (one component for one option) => option’s name
-						     => ‘star’ mark
-						     => Items.js (one component for one item)
-					             => chosen item number button
+
+<img src="/webpage-structure.png" alt="Webpage Structure"/>
 
 
 Test Cases:
