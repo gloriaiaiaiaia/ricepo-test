@@ -38,7 +38,7 @@ const database = {
 				{
 					name: "milk tea",
 					price: 0,
-					available: false,
+					available: true,
 					quantity: 0
 				},
 				{
