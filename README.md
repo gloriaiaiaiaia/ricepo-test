@@ -6,6 +6,7 @@ Webpage Structure:
 
 
 Test Cases:
+
 About JSON data:
 1. item.available could be ‘false’;
 2. option.max could be ‘0’, indicates no high limitation;
