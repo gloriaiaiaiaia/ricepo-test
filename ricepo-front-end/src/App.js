@@ -42,6 +42,13 @@ class App extends Component {
                 console.log('opP', this.state.optionPrice);
               });
 
+            // if no option at all
+            if (this.state.options.length === 0) {
+              this.setState({
+                reachOptionMin: true
+              })
+            }
+
             // store 'min' of each options
             var newOptionMin = new Array(data.options.length).fill(0);
             var i = 0;
